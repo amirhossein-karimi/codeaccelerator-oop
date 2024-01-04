@@ -2,19 +2,25 @@
 
 namespace Services;
 
+use Infra\Event;
 use Models\User;
 use Repositories\UserRepository;
+use Values\Amount;
 
 final class UserService
 {
 
-    public function __construct(private UserRepository $userRepository)
-    {
+    public function __construct(
+        private UserRepository $userRepository,
+        private Event $event
+    ) {
     }
 
 
-    public function register(User $user): void
+    public function register(User $user, Amount $initialBalance): void
     {
-        $this->userRepository->save($user);
+        $id = $this->userRepository->save($user);
+
+        $this->event->dispath('UserRegister', ['userID' => $id, 'amount' => $initialBalance]);
     }
 }

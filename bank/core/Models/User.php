@@ -7,8 +7,11 @@ use Enums\UserStatus;
 final class User
 {
 
-    public function __construct(private string $name, private string $family, private UserStatus $userStatus)
-    {
+    public function __construct(
+        private string $name,
+        private string $family,
+        private UserStatus $userStatus
+    ) {
     }
 
     public function getName(): string
