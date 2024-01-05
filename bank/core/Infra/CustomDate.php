@@ -2,17 +2,15 @@
 
 namespace Infra;
 
-use DateTime;
 
-final class CustomDate
+use DateTimeImmutable;
+
+final class CustomDate extends DateTimeImmutable
 {
-
-    public function __construct(private DateTime $date)
-    {
-    }
 
     public function now(): string
     {
-        return $this->date->format('Y-m-d h:i:s');
+
+        return $this->format("Y-m-d H:i:s");
     }
 }

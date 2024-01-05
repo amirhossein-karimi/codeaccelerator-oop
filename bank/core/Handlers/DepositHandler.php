@@ -3,17 +3,16 @@
 namespace Handlers;
 
 use Enums\TransactionType;
-use Infra\CustomDate;
 use Models\Transaction;
-use Services\TransactionService;
+use Repositories\TransactionRepository;
 
-final class TransactionHandler
+
+final class DepositHandler
 {
 
     public function __construct(
         private array $data,
-        private TransactionService $transactionService,
-        private CustomDate $date
+        private TransactionRepository $transactionRepository
     ) {
     }
 
@@ -23,9 +22,8 @@ final class TransactionHandler
             $this->data['userID'],
             $this->data['amount'],
             TransactionType::DEPOSIT,
-            $this->date->now()
+            $this->data['currentDate']
         );
-
-        $this->transactionService->create($transaction);
+        $this->transactionRepository->save($transaction);
     }
 }

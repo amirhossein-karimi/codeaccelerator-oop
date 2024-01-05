@@ -2,16 +2,14 @@
 
 namespace Values;
 
-use Exception;
-
 final class Amount
 {
-
     public function __construct(private float $value)
     {
         if ($value <= 0) {
-            throw new Exception('The value must be greather than 0');
+            throw new \InvalidArgumentException('The value should be greather than 0');
         }
+
         $this->value = $value;
     }
 

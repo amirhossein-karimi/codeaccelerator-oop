@@ -2,18 +2,20 @@
 
 namespace Infra;
 
-use DateTime;
+
 use ReflectionClass;
 use Repositories\TransactionRepository;
-use Services\TransactionService;
 
 final class Event
 {
 
 
     const LISTENERS = [
-        'UserRegister' => [
-            'TransactionHandler'
+        'WithDrawal' => [
+            'WithDrawalHandler'
+        ],
+        'Deposit' => [
+            'DepositHandler'
         ]
     ];
 
@@ -28,7 +30,7 @@ final class Event
             /**
              * each handler maybe need some dependency inject them here
              */
-            $h = $class->newInstance($data, new TransactionService(new TransactionRepository()) , new CustomDate(new DateTime()));
+            $h = $class->newInstance($data, new TransactionRepository());
             $h->handler();
         }
     }

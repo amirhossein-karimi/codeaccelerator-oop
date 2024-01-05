@@ -1,9 +1,9 @@
 <?php
 
-
 spl_autoload_register('autoload');
 
-function autoload($className)
+
+function autoload($class): void
 {
-    include 'core/' . $className . '.php';
+    include_once 'core/' . $class . '.php';
 }

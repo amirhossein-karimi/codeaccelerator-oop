@@ -1,19 +1,23 @@
 <?php
 
+
 use Enums\UserStatus;
+use Infra\CustomDate;
 use Infra\Event;
 use Models\User;
 use Repositories\UserRepository;
-use Services\UserService;
+use Services\UserSerivce;
 use Values\Amount;
 
 require_once 'autoload.php';
 
-$user = new User('amir', 'karimi', UserStatus::ACTIVE);
-
-$userSerivce = new UserService(
-    new UserRepository(),
-    new Event()
+$user = new User(
+    name: 'amir',
+    family: 'karimi',
+    status: UserStatus::ACTIVE,
+    transactions: []
 );
 
-$userSerivce->register($user, new Amount(25));
+$userService = new UserSerivce(new UserRepository(), new Event());
+
+var_dump($userService->getListOfTransactions(20));
